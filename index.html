@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        body {
+            font-family: 'JamFigure', sans-serif; /* Use JamFigure font */
+            background-color: #f0f4f8; /* Light blue background */
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #3498db; /* Blue title color */
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .calculator {
+            background-color: #ecf0f1; /* Light gray calculator background */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        .display {
+            background-color: #dcdcdc; /* Darker gray display background */
+            color: #333;
+            font-size: 2em;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            background-color: #3498db; /* Blue button background */
+            border: none;
+            padding: 20px;
+            font-size: 1.5em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            color: #fff; /* White button text */
+        }
+        .button:active {
+            background-color: #2980b9; /* Darker blue when pressed */
+        }
+        .button.equal {
+            background-color: #2ecc71; /* Green equals button */
+        }
+        .button.equal:active {
+            background-color: #27ae60; /* Darker green when pressed */
+        }
+        .button.clear {
+            background-color: #e74c3c; /* Red clear button */
+        }
+        .button.clear:active {
+            background-color: #c0392b; /* Darker red when pressed */
+        }
+        .button.delete {
+            background-color: #f39c12; /* Yellow delete button */
+        }
+        .button.delete:active {
+            background-color: #d35400; /* Darker yellow when pressed */
+        }
+        .green-dot {
+            color: #27ae60; /* Dark green dot color */
+        }
+    </style>
+    <!-- Link to JamFigure font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JamFigure&display=swap">
+</head>
+<body>
+
+<h1>JamFigure<span class="green-dot">.</span></h1>
+
+<div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button delete" onclick="deleteLast()">DEL</button> <!-- Delete button -->
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button> <!-- Decimal point button -->
+        <button class="button" onclick="appendToDisplay('+')">+</button>
+        <button class="button" onclick="appendToDisplay('-')">-</button>
+        <button class="button" onclick="appendToDisplay('*')">*</button>
+        <button class="button" onclick="appendToDisplay('/')">/</button>
+        <button class="button" onclick="appendToDisplay('**')">^</button> <!-- Using ** for exponentiation -->
+        <button class="button equal" onclick="calculate()">=</button>
+    </div>
+</div>
+
+<script>
+    let displayElement = document.getElementById('display');
+
+    function appendToDisplay(value) {
+        displayElement.textContent += value;
+    }
+
+    function clearDisplay() {
+        displayElement.textContent = '';
+    }
+
+    function deleteLast() {
+        let currentInput = displayElement.textContent;
+        displayElement.textContent = currentInput.slice(0, -1);
+    }
+
+    function calculate() {
+        try {
+            let expression = displayElement.textContent.replace('^', '**'); // Replace ^ with **
+            let result = eval(expression);
+            displayElement.textContent = result;
+        } catch (error) {
+            displayElement.textContent = 'Error';
+        }
+    }
+</script>
+
+</body>
+</html>
